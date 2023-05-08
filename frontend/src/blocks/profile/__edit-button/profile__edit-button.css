@@ -1,0 +1,28 @@
+.profile__edit-button {
+  padding: 0;
+  margin: 0;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  background-image: url("data:image/svg+xml,%3Csvg width='10' height='10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M10 1.328 2.604 8.767 1.283 7.419 8.66 0 10 1.328ZM0 10l1.962-.588L.585 8.083 0 10Z' fill='%23fff'/%3E%3C/svg%3E");
+  background-repeat: no-repeat no-repeat;
+  background-position: center center;
+  background-size: 10px;
+  border: 1px solid #ffffff;
+  cursor: pointer;
+}
+
+.profile__edit-button:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 780px) {
+  .profile__edit-button {
+    background-size: 7px;
+    height: 18px;
+    width: 18px;
+  }
+}

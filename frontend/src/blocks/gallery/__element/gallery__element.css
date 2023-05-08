@@ -1,0 +1,11 @@
+.gallery__element {
+  list-style: none;
+  max-width: 282px;
+  min-height: 361px;
+  margin: 0;
+  padding: 0;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}

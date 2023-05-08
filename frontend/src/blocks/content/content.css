@@ -1,0 +1,12 @@
+.content {
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 780px) {
+  .content {
+    margin: 0 auto;
+    padding: 0 19px;
+  }
+}
