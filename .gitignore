@@ -18,3 +18,4 @@ npm-debug.log*
 /frontend/public/
 /frontend/node_modules/
 /backend/node_modules/
+.env
