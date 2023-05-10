@@ -4,7 +4,8 @@ const User = require('../models/user');
 
 const BadRequestError = require('../errors/BadRequestError');
 const NotFoundError = require('../errors/NotFoundError');
-const ConflictError = require('../errors/ConflictError');
+
+const { NODE_ENV, JWT_SECRET } = process.env;
 
 module.exports.getUser = (req, res, next) => {
   User.find({})
@@ -35,13 +36,7 @@ module.exports.createUser = (req, res, next) => {
   const {
     name, about, avatar, email, password,
   } = req.body;
-  User.findOne({ email })
-    .then((user) => {
-      if (user) {
-        throw new ConflictError('Этот пользователь уже зарегистрирован');
-      }
-      return bcrypt.hash(password, 10);
-    })
+  bcrypt.hash(password, 10)
     .then((hash) => User.create({
       name, about, avatar, email, password: hash,
     }))
@@ -106,7 +101,7 @@ module.exports.login = (req, res, next) => {
 
   return User.findUserByCredentials(email, password)
     .then((user) => {
-      const token = jwt.sign({ _id: user._id }, '5cdd183194489560b0e6bfaf8a81541e', { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
       res.status(200).send({ _id: token, message: 'Регистрация прошла успешно' });
     })
     .catch((err) => {
@@ -127,9 +122,6 @@ module.exports.getUserInfo = (req, res, next) => {
       return res.status(200).send({ data: user });
     })
     .catch((err) => {
-      if (err.name === 'CastError') {
-        return next(new BadRequestError('Некорректный id'));
-      }
-      return next(err);
+      next(err);
     });
 };

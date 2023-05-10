@@ -59,14 +59,10 @@ app.post('/signin', celebrate({
 
 app.use('/', auth, usersRouter);
 app.use('/', auth, cardsRouter);
+app.use('*', () => next(new NotFoundError('Страница не найдена')));
 
 app.use(errorLogger);
-
 app.use(errors());
-
-app.use('*', () => {
-  throw new NotFoundError('Страница не найдена');
-});
 
 app.use((err, req, res, next) => {
   if (err.statusCode) {
